@@ -2,12 +2,15 @@ import { authOptions } from '@/libs/AuthOptions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation';
 import React from 'react'
+import Navbar from '@/components/Navbar';
 
 interface ProtectedRootLayoutProps{
     children: React.ReactNode
   }
 
-export default async function ProtectedRootLayout({
+export default async function ProtectedRootLayout(
+  
+  {
   children
 }: ProtectedRootLayoutProps) {
 

@@ -42,3 +42,5 @@ export const authOptions: AuthOptions = {
   },
   debug: process.env.NODE_ENV !== "production",
 }
+
+
