@@ -1,8 +1,0 @@
-export default function AnimasyonKategori() {
-  return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <h1 className="text-3xl font-bold mb-4">Tarih Kategorisi</h1>
-      <p>Bu sayfada animasyon türüne ait filmler listelenecek...</p>
-    </div>
-  );
-}
