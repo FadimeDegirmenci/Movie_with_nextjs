@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,11 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @db.ObjectId @default(auto()) @map("_id") @id
-  email String
+model User {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  email          String   @unique
   hashedPassword String
+  name           String?
+  image          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  favorites  Favorite[]
+  watched    Watched[]
+  watchLater WatchLater[]
+}
+
+model Movie {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  posterPath  String
+  releaseDate String
+
+  favoritedBy  Favorite[]
+  watchedBy    Watched[]
+  watchLaterBy WatchLater[]
+}
+
+model Favorite {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  movie   Movie  @relation(fields: [movieId], references: [id])
+  movieId String @db.ObjectId
+}
+
+model Watched {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  movie   Movie  @relation(fields: [movieId], references: [id])
+  movieId String @db.ObjectId
+}
+
+model WatchLater {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.ObjectId
+  movie   Movie  @relation(fields: [movieId], references: [id])
+  movieId String @db.ObjectId
 }
